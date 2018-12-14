@@ -20,9 +20,7 @@ import java.io.OutputStream;
 
 public class MainActivity extends AppCompatActivity {
     private final int REQUEST_PERMISSION_EXTERNAL_CARD = 1;
-    //private static String DB_PATH = Environment.getExternalStorageDirectory()+ File.separator + "Android" + File.separator +
-    //        "data" + File.separator + "com.sqlite.gsb.testsqlite" + File.separator + "databases";
-    private static String DB_PATH = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+ File.separator + "com.sqlite.gsb.testsqlite";
+    private static String DB_PATH = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+ File.separator + "com.gsb.javamedicaments";
     private static String DB_NAME = "medicaments.db";
 
     @Override
@@ -51,25 +49,25 @@ public class MainActivity extends AppCompatActivity {
             case REQUEST_PERMISSION_EXTERNAL_CARD:
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(MainActivity.this, "Permission Granted!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Permission autorisée par l'utilisateur", Toast.LENGTH_SHORT).show();
 
                     String state = Environment.getExternalStorageState();
                     if(Environment.MEDIA_MOUNTED.equals(state)){
                         // Both Read and write operations available
-                        Log.i("t2", "Il y a bien une carte externe");
+                        Log.i("MainActivity", "Il y a bien une carte externe");
 
                         //je crée le répertoire pour placer la base de données sur la carte externe
                         File appDir = new File(DB_PATH);
                         if(!appDir.exists() && !appDir.isDirectory()){
                             if (appDir.mkdirs()){
-                                Log.i("CreateDir","App dir created");
-                                copyDataBase();
+                                Log.i("MainActivity","Répertoire Downloads/com.sqlite.gsb.testsqlite créé sur la carte externe");
+                                this.copyDataBase();
                             }
                             else{
-                                Log.w("CreateDir","Unable to create app dir!");
+                                Log.w("MainActivity","Impossible de créer le répertoire Downloads/com.sqlite.gsb.testsqlite sur la carte externe");
                             }
                         }else{
-                            Log.i("CreateDir","App dir already exists");
+                            Log.i("MainActivity","Le répertoire Downloads/com.sqlite.gsb.testsqlite existe déjà sur la carte externe");
                         }
                     } else if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)){
                         // Only Read operation available
@@ -79,10 +77,11 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Il n'y a pas de carte externe", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(MainActivity.this, "Permission Denied!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Autorisation refusée par l'utilisateur", Toast.LENGTH_SHORT).show();
                 }
         }
     }
+
 
     private void showExplanation(String title,
                                  String message,
