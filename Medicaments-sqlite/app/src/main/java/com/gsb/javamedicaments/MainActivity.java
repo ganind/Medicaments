@@ -60,14 +60,14 @@ public class MainActivity extends AppCompatActivity {
                         File appDir = new File(DB_PATH);
                         if(!appDir.exists() && !appDir.isDirectory()){
                             if (appDir.mkdirs()){
-                                Log.i("MainActivity","Répertoire Downloads/com.sqlite.gsb.testsqlite créé sur la carte externe");
+                                Log.i("MainActivity","Répertoire Downloads/com.gsb.javamedicaments créé sur la carte externe");
                                 this.copyDataBase();
                             }
                             else{
-                                Log.w("MainActivity","Impossible de créer le répertoire Downloads/com.sqlite.gsb.testsqlite sur la carte externe");
+                                Log.w("MainActivity","Impossible de créer le répertoire Downloads/com.gsb.javamedicaments sur la carte externe");
                             }
                         }else{
-                            Log.i("MainActivity","Le répertoire Downloads/com.sqlite.gsb.testsqlite existe déjà sur la carte externe");
+                            Log.i("MainActivity","Le répertoire Downloads/com.gsb.javamedicaments existe déjà sur la carte externe");
                         }
                     } else if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)){
                         // Only Read operation available
